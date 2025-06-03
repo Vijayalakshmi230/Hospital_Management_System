@@ -55,22 +55,22 @@ public class IHospitalServiceImpl implements IHospitalService {
 
 	}
 
-//	create appointment
 	@Override
 	public boolean scheduleAppointment(Appointment appointment) {
-//		query
-		String sql = "INSERT INTO appointments (doctorId, patientId, appointmentDate, description) VALUES (?, ?, ?, ?)";
-		try (PreparedStatement stmt = con.prepareStatement(sql)) {
-			stmt.setInt(1, appointment.getDoctorId());
-			stmt.setInt(2, appointment.getPatientId());
-			stmt.setString(3, appointment.getAppointmentDate());
-			stmt.setString(4, appointment.getDescription());
+	    String sql = "INSERT INTO appointment (appointmentId, doctorId, patientId, appointmentDate, description) VALUES (?, ?, ?, ?, ?)";
+	    try (PreparedStatement stmt = con.prepareStatement(sql)) {
+	        stmt.setInt(1, appointment.getAppointmentId());
+	        stmt.setInt(2, appointment.getDoctorId());
+	        stmt.setInt(3, appointment.getPatientId());
+	        stmt.setString(4, appointment.getAppointmentDate());
+	        stmt.setString(5, appointment.getDescription());
 
-			int rowsInserted = stmt.executeUpdate();
-			return rowsInserted > 0;
-		} catch (SQLException e) {
-			throw new RuntimeException("Error scheduling appointment", e);
-		}
+	        int rowsInserted = stmt.executeUpdate();
+	        return rowsInserted > 0;
+	    } catch (SQLException e) {
+	        e.printStackTrace(); // Show full DB error
+	        throw new RuntimeException("Error scheduling appointment", e);
+	    }
 	}
 
 //  update appointment

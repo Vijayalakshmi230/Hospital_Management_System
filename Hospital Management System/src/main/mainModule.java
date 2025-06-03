@@ -67,22 +67,37 @@ public class mainModule {
 					System.out.println("Doctor Profile was added sucessfully");
 					break;
 				}
-//				Schedule Appointment
 				case 3: {
-					System.out.println("Enter appointment ID : ");
-					int appointmentId = sc.nextInt(); sc.nextLine();
-					System.out.println("Enter patient ID : ");
-					int patientId = sc.nextInt(); sc.nextLine();
-					System.out.println("Enter Doctro ID : ");
-					int doctorId = sc.nextInt(); sc.nextLine();
-					System.out.println("Enter appointment date : ");
-					String appointmentDate = sc.nextLine();
-					System.out.println("Enter description : ");
-					String description = sc.nextLine();
-					impl.scheduleAppointment(new Appointment(appointmentId, patientId, doctorId, appointmentDate, description));
-					System.out.println("Booked any appointment for patient Sucessfully. ");
-					break;
+				    System.out.println("Enter appointment ID : ");
+				    int appointmentId = sc.nextInt(); sc.nextLine();
+
+				    System.out.println("Enter patient ID : ");
+				    int patientId = sc.nextInt(); sc.nextLine();
+
+				    if (impl.getAppointmentsForPatient(patientId) == null) {
+				        System.out.println("Patient ID not found. Please add the patient first.");
+				        break;
+				    }
+
+				    System.out.println("Enter Doctor ID : ");
+				    int doctorId = sc.nextInt(); sc.nextLine();
+
+				    if (impl.getAppointmentsForDoctor(doctorId) == null) {
+				        System.out.println("Doctor ID not found. Please add the doctor first.");
+				        break;
+				    }
+
+				    System.out.println("Enter appointment date : ");
+				    String appointmentDate = sc.nextLine();
+
+				    System.out.println("Enter description : ");
+				    String description = sc.nextLine();
+
+				    impl.scheduleAppointment(new Appointment(appointmentId, patientId, doctorId, appointmentDate, description));
+				    System.out.println("Booked an appointment for patient successfully.");
+				    break;
 				}
+
 				case 4: {
 //				 update appointment
 					System.out.println("Enter appointment ID : ");
